@@ -1,5 +1,32 @@
 # A comparative study of the Multipath TCP for the Linux kernel
 
+## Download our testbed implementation in VitualBox:
+[Google Drive Link](https://drive.google.com/file/d/1x-H1WlIYpDLVZQ48HHZzU_0nNb_NDZ4w/view?usp=sharing)
+
+## Install MPTCP in Ubuntu
+Download and MPTCP for Ubuntu 14.04:
+
+    wget -q -O - https://multipath-tcp.org/mptcp.gpg.key | sudo apt-key add - 
+    sudo echo "deb https://multipath-tcp.org/repos/apt/debian trusty main" >> /etc/apt/sources.list.d/mptcp.list
+    sudo apt-get update
+    sudo apt-get install linux-mptcp
+
+Install Grub Customizer. Then move MPTCP kernel to the top of the list.
+
+    sudo add-apt-repository ppa:danielrichter2007/grub-customizer  
+    sudo apt-get update  
+    sudo apt-get install grub-customizer
+
+Restart and enable MPTCP:
+
+    sudo sysctl -w net.mptcp.mptcp_enabled="1"
+
+To change the congestion control algorithm:
+
+    sudo sysctl -w net.ipv4.tcp_congestion_control="balia"
+
+Available options are cubic, lia, olia, balia, wvegas
+
 ## Router 1 configuration
     
     sed -i 's/ubuntu/router1/g' /etc/hostname
